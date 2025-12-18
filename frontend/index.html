@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камера хранения</title>
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="student-info">
+                <h3>Студент: Игуменшев Дмитрий Евгеньевич</h3>
+                <p>Группа: ФБИ-33</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link active">Главная</a>
+                <a href="profile.html" class="nav-link" id="profile-link" style="display:none;">Профиль</a>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline" id="login-btn">Войти</a>
+                    <a href="register.html" class="btn" id="register-btn">Регистрация</a>
+                    <button onclick="logout()" class="btn btn-danger" id="logout-btn" style="display:none;">Выйти</button>
+                    <span id="user-greeting" style="margin-left: 10px;"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Камера хранения</h1>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Всего ячеек</h3>
+                <div class="stat-number" id="total-lockers">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Свободно</h3>
+                <div class="stat-number free" id="free-lockers">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Занято</h3>
+                <div class="stat-number occupied" id="occupied-lockers">0</div>
+            </div>
+            <div class="stat-card" id="my-reservations-card" style="display:none;">
+                <h3>Мои брони</h3>
+                <div class="stat-number mine" id="my-reservations">0</div>
+                <small>из 5 возможных</small>
+            </div>
+        </div>
+
+        <div class="filters">
+            <button onclick="filterLockers('all')" class="btn-filter active">Все ячейки</button>
+            <button onclick="filterLockers('free')" class="btn-filter">Свободные</button>
+            <button onclick="filterLockers('occupied')" class="btn-filter">Занятые</button>
+            <button onclick="filterLockers('mine')" class="btn-filter" id="mine-filter" style="display:none;">Мои</button>
+        </div>
+
+        <div class="lockers-container">
+            <div class="lockers-grid" id="lockers-grid">
+                <!-- Ячейки будут загружены через JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно -->
+    <div id="locker-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Ячейка #<span id="modal-locker-number"></span></h2>
+            <div id="modal-info">
+                <!-- Информация о ячейке -->
+            </div>
+            <div id="modal-actions">
+                <!-- Кнопки действий -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/lockers.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

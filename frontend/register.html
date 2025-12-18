@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Камера хранения</title>
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="student-info">
+                <h3>Студент: Игуменшев Дмитрий Евгеньевич</h3>
+                <p>Группа: ФБИ-33</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="login.html" class="nav-link">Войти</a>
+                <a href="register.html" class="nav-link active">Регистрация</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="auth-form-container">
+            <h1>Регистрация</h1>
+            
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Имя пользователя*</label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Только латинские буквы, цифры, . _ -">
+                    <small>3-50 символов</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль*</label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Минимум 8 символов, буквы, цифры, спецсимвол">
+                    <small>Минимум 8 символов, буквы, цифры, @$!%*#?&</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="Введите email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="first_name">Имя*</label>
+                    <input type="text" id="first_name" name="first_name" required 
+                           placeholder="Введите ваше имя">
+                </div>
+                
+                <div class="form-group">
+                    <label for="last_name">Фамилия*</label>
+                    <input type="text" id="last_name" name="last_name" required 
+                           placeholder="Введите вашу фамилию">
+                </div>
+                
+                <div class="form-group">
+                    <label for="group">Группа*</label>
+                    <input type="text" id="group" name="group" required 
+                           placeholder="Например: ПИ-202" value="ПИ-202">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+            
+            <div class="auth-links">
+                <p>Уже есть аккаунт? <a href="login.html">Войдите</a></p>
+                <p><a href="index.html">Вернуться на главную</a></p>
+            </div>
+            
+            <div id="message" class="message"></div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

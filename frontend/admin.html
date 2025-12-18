@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Админ-панель - Камера хранения</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="student-info">
+      <h3>Студент: Игуменшев Дмитрий Евгеньевич</h3>
+      <p>Группа: ФБИ-33</p>
+    </div>
+    <nav>
+      <a href="index.html" class="nav-link">Главная</a>
+      <a href="profile.html" class="nav-link">Профиль</a>
+      <a href="admin.html" class="nav-link active">Админ</a>
+      <button onclick="logout()" class="btn btn-danger">Выйти</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Админ-панель</h1>
+
+  <div class="admin-section">
+    <h2>Действия администратора</h2>
+    <button id="clear-btn" class="btn btn-warning">Очистить все бронирования</button>
+
+    <div class="admin-users">
+      <h2>Пользователи</h2>
+      <div id="users-list" class="users-list"></div>
+    </div>
+  </div>
+</main>
+
+<script src="js/auth.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("token");
+  const user = (() => { try { return JSON.parse(localStorage.getItem("user")); } catch { return null; } })();
+
+  if (!token || !user) {
+    window.location.href = "login.html";
+    return;
+  }
+  if (!user.is_admin) {
+    alert("Требуются права администратора");
+    window.location.href = "index.html";
+    return;
+  }
+
+  const listEl = document.getElementById("users-list");
+  const { res, data } = await apiFetch("/users/all", { method: "GET" });
+  if (!res.ok) {
+    alert(data.error || "Ошибка загрузки пользователей");
+    return;
+  }
+
+  listEl.innerHTML = "";
+  for (const u of data.users) {
+    const div = document.createElement("div");
+    div.className = "user-item";
+    div.innerHTML = `
+      <div class="user-info">
+        <b>${u.username}</b> — ${u.first_name} ${u.last_name} (${u.group})<br/>
+        <span class="text-muted">${u.email} | ${u.is_admin ? "ADMIN" : "USER"}</span>
+      </div>
+    `;
+    listEl.appendChild(div);
+  }
+
+  document.getElementById("clear-btn").onclick = async () => {
+    if (!confirm("Очистить все брони?")) return;
+    const { res: r2, data: d2 } = await apiFetch("/lockers/admin/clear", { method: "POST" });
+    if (!r2.ok) {
+      alert(d2.error || "Ошибка");
+      return;
+    }
+    alert(`Очищено: ${d2.cleared_count}`);
+    window.location.href = "index.html";
+  };
+});
+</script>
+</body>
+</html>

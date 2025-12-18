@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль - Камера хранения</title>
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="student-info">
+                <h3>Студент: Игуменшев Дмитрий Евгеньевич</h3>
+                <p>Группа: ФБИ-33</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="profile.html" class="nav-link active">Профиль</a>
+                <button onclick="logout()" class="btn btn-danger">Выйти</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Мой профиль</h1>
+        
+        <div class="profile-container">
+            <div class="profile-info">
+                <h2>Информация о пользователе</h2>
+                <div id="user-info">
+                    <!-- Данные пользователя -->
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <h2>Действия</h2>
+                <button onclick="showUpdateForm()" class="btn btn-primary">Редактировать профиль</button>
+                <button onclick="deleteAccount()" class="btn btn-danger">Удалить аккаунт</button>
+            </div>
+            
+            <div class="my-reservations">
+                <h2>Мои бронирования</h2>
+                <div id="reservations-list">
+                    <!-- Список бронирований -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Форма редактирования -->
+        <div id="update-form" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeUpdateForm()">&times;</span>
+                <h2>Редактирование профиля</h2>
+                <form id="update-profile-form">
+                    <div class="form-group">
+                        <label for="update-email">Email</label>
+                        <input type="email" id="update-email" name="email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="update-first_name">Имя</label>
+                        <input type="text" id="update-first_name" name="first_name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="update-last_name">Фамилия</label>
+                        <input type="text" id="update-last_name" name="last_name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="update-group">Группа</label>
+                        <input type="text" id="update-group" name="group">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
