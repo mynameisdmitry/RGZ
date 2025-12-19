@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
@@ -8,6 +8,9 @@ from models import bcrypt, User, Locker
 from api.auth import auth_bp
 from api.lockers import lockers_bp
 from api.users import users_bp
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /home/wenby/RGZ
+FRONT_DIR = os.path.join(ROOT_DIR, "frontend")
 
 def create_app():
     app = Flask(__name__)
@@ -47,18 +50,28 @@ def create_app():
 
     @app.route("/")
     def index():
+        return send_from_directory(FRONT_DIR, "index.html")
+
+    @app.route("/api/health")
+    def health():
+        return jsonify({"status": "healthy"})
+
+    @app.route("/<path:path>")
+    def frontend_assets(path):
+        # отдаём любые файлы из frontend (css/js/*.html)
+        return send_from_directory(FRONT_DIR, path)
+
+    @app.route("/api")
+    def api_info():
         return jsonify({
             "message": "Камера хранения API",
             "student": Config.STUDENT_NAME,
             "group": Config.STUDENT_GROUP,
             "version": "1.0.0"
         })
-
-    @app.route("/api/health")
-    def health():
-        return jsonify({"status": "healthy"})
-
+    
     return app
+    
 
 if __name__ == "__main__":
     app = create_app()
