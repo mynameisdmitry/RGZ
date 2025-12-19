@@ -56,10 +56,18 @@ def create_app():
     def health():
         return jsonify({"status": "healthy"})
 
+    
     @app.route("/<path:path>")
     def frontend_assets(path):
-        # отдаём любые файлы из frontend (css/js/*.html)
-        return send_from_directory(FRONT_DIR, path)
+        if path.startswith("api/"):
+            abort(404)
+    
+        full = os.path.join(FRONT_DIR, path)
+        if os.path.isfile(full):
+            return send_from_directory(FRONT_DIR, path)
+    
+        # если путь не файл — отдаём главную 
+        return send_from_directory(FRONT_DIR, "index.html")
 
     @app.route("/api")
     def api_info():
